@@ -3,42 +3,42 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { name, phone, email, comment } = await req.json();
-    if (!name || !phone) {
-      return NextResponse.json({ error: "Имя и телефон обязательны" }, { status: 400 });
-    }
 
-    const accountId = process.env.UON_ACCOUNT_ID;
-    const apiKey = process.env.UON_API_KEY;
+    // 🔑 Данные для UON.Travel
+    const apiKey = "88ub76SBP0qPFOKn1td61729529225";
+    const accountId = "61098";
 
-    if (!accountId || !apiKey) {
-      return NextResponse.json({ error: "UON не настроен (переменные окружения отсутствуют)" }, { status: 500 });
-    }
-
+    // 🚀 Формируем тело запроса
     const payload = {
       key: apiKey,
-      title: "Заявка с сайта Адриа Тревел",
+      title: "Заявка с сайта Adria Travel",
       client_name: name,
       client_phone: phone,
       client_email: email || "",
-      comment: comment || "",
-      source: "Сайт Адриа Тревел"
+      note: comment || "",
+      source: "Adria Travel — сайт",
     };
 
-    const uonRes = await fetch(`https://api.u-on.ru/${accountId}/lead/add.json`, {
+    // 📡 Отправляем в UON.Travel
+    const res = await fetch(`https://api.u-on.ru/${accountId}/lead/add.json`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-      // timeout is not native in fetch; rely on platform default
     });
 
-    const data = await uonRes.json().catch(() => ({}));
+    const result = await res.json();
+    console.log("✅ Ответ UON:", result);
 
-    if (!uonRes.ok) {
-      return NextResponse.json({ error: data?.error || "UON отклонил запрос" }, { status: 502 });
+    if (result.error) {
+      throw new Error(result.error);
     }
 
-    return NextResponse.json(data);
-  } catch (e:any) {
-    return NextResponse.json({ error: e?.message || "Server error" }, { status: 500 });
+    return NextResponse.json({ ok: true, message: "Заявка успешно отправлена!", result });
+  } catch (error: any) {
+    console.error("❌ Ошибка при отправке:", error);
+    return NextResponse.json(
+      { ok: false, message: error.message || "Ошибка при отправке данных в UON" },
+      { status: 500 }
+    );
   }
 }
