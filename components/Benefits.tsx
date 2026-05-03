@@ -1,0 +1,2 @@
+const items=['Подбор под бюджет','Живые рекомендации','Отели и маршруты без мусора','Поддержка до и во время поездки','Индивидуальные сценарии отдыха'];
+export default function Benefits(){return <section><h2 className='text-3xl font-semibold mb-4'>Почему Adria Travel</h2><ul className='grid md:grid-cols-2 gap-3'>{items.map(i=><li key={i} className='bg-white p-4 rounded-xl'>{i}</li>)}</ul></section>}
