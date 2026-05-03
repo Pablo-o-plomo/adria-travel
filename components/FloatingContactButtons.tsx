@@ -1,0 +1,1 @@
+export default function FloatingContactButtons(){return <div className='fixed right-4 bottom-24 z-50 flex flex-col gap-2'><a className='bg-emerald-500 text-white px-4 py-2 rounded-full' href='#'>WhatsApp</a><a className='bg-sky-500 text-white px-4 py-2 rounded-full' href='#'>Telegram</a></div>}
