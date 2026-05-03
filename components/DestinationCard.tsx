@@ -1,0 +1,2 @@
+import Link from 'next/link'; import { Destination } from '@/lib/data';
+export default function DestinationCard({d}:{d:Destination}){return <Link href={`/destinations/${d.slug}`} className='block rounded-2xl overflow-hidden'><div className='h-52 bg-cover bg-center' style={{backgroundImage:`linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.05)), url(${d.hero})`}}><div className='p-4 h-full flex items-end text-white'><div><h3 className='text-xl font-semibold'>{d.name}</h3><p className='text-sm'>{d.teaser}</p></div></div></div></Link>}

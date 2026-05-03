@@ -1,0 +1,1 @@
+export default function Testimonials(){return <section><h2 className='text-3xl font-semibold mb-4'>Отзывы</h2><div className='bg-white rounded-xl p-5'>«Маршрут без суеты, отели у воды и точный подбор под бюджет.»</div></section>}
