@@ -1,0 +1,2 @@
+import { NextResponse } from 'next/server'; import { validateLead } from '@/lib/validation'; import { sendLeadToTelegram } from '@/lib/telegram';
+export async function POST(req:Request){const body = await req.json(); const v=validateLead(body); if(!v.ok) return NextResponse.json({success:false,errors:v.missing},{status:400}); console.log('Lead', body); await sendLeadToTelegram(body); return NextResponse.json({success:true});}
